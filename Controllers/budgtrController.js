@@ -45,4 +45,17 @@ transaction.delete("/:id", (req, res) => {
     };
 });
 
+//update the key values from one specific transaction (PUT REQ)
+transaction.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const indexToUpdate = transactionsData.findIndex(trans => trans.id === id);
+
+    if(indexToUpdate !== -1){
+        transactionsData[indexToUpdate] = {...transactionsData[indexToUpdate], ...req.body};
+        res.status(214).json(transactionsData[indexToUpdate]);
+    } else {
+        res.status(404).redirect("/not-found");
+    };
+});
+
 module.exports = transaction;
