@@ -2,6 +2,8 @@
 const express = require("express");
 const transaction = express.Router();
 const transactionsData = require("../Models/transaction");
+const { nanoid } = require("nanoid");
+
 
 //index all transactions (GET REQ)
 transaction.get("/", (req, res) => {
@@ -21,6 +23,13 @@ transaction.get("/:id", (req, res) => {
     } else {
         res.status(200).json(foundTransaction);
     }
+});
+
+//create one new transaction (POST REQ)
+transaction.post("/", (req, res) => {
+    const incomingTrans = {id:nanoid(8), ...req.body};
+    transactionsData.push(incomingTrans);
+    res.status(200).json(transactionsData[transactionsData.length - 1]);
 })
 
 module.exports = transaction;
