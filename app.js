@@ -17,12 +17,16 @@ app.use("/transactions", transactionsController);
 
 //Root page or landing page and not found
 app.get("/", (req, res) => {
-    res.send("welcome to Budgtr server");
+    res.json(
+        {
+            welcome_to: "Budgtr App Backend Server",
+            developed_by: "Abraham Zambrano T."
+        });
 });
 
 app.get("*", (req, res) => {
-    res.send(`<h1>404 NOT FOUND</h1>`);
-})
+    res.json({error_code: "404 Not Found"});
+});
 
 
 module.exports = app;
