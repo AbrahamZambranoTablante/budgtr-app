@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-    res.json({error_code: "404 Not Found"});
+    res.status(404).json({error_code: "404 Not Found"});
 });
 
 
