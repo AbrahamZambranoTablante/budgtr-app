@@ -29,7 +29,20 @@ transaction.get("/:id", (req, res) => {
 transaction.post("/", (req, res) => {
     const incomingTrans = {id:nanoid(8), ...req.body};
     transactionsData.push(incomingTrans);
-    res.status(200).json(transactionsData[transactionsData.length - 1]);
-})
+    res.status(201).json(transactionsData[transactionsData.length - 1]);
+});
+
+//remove one specific transaction from data (DELETE REQ)
+transaction.delete("/:id", (req, res) => {
+    const { id } = req.params;
+    const indexToRemove = transactionsData.findIndex(trans => trans.id === id);
+
+    if(indexToRemove !== -1){
+        transactionsData.splice(indexToRemove, 1);
+        res.status(200).redirect("/transactions");
+    } else {
+        res.status(404).redirect("/not-found");
+    };
+});
 
 module.exports = transaction;
