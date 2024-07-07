@@ -27,7 +27,7 @@ transaction.get("/:id", (req, res) => {
 
 //create one new transaction (POST REQ)
 transaction.post("/", (req, res) => {
-    const incomingTrans = {id:nanoid(8), ...req.body};
+    const incomingTrans = {...req.body};
     transactionsData.push(incomingTrans);
     res.status(201).json(transactionsData[transactionsData.length - 1]);
 });
